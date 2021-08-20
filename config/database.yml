@@ -7,12 +7,24 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: 0.0.0.0
+  host: 127.0.0.1
+  port: 5432
   database: my_blog
-  pool: 5
-  username: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  user: blog_admin
   password: qwerty
+  timeout: 5000
 
+  # default: &default
+  # adapter: postgresql
+  # encoding: unicode
+  # host: 127.0.0.1
+  # port: 5433
+  # database: blog_db
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # user: blog_admin
+  # password: 123456
+  # timeout: 5000
 
 development:
   <<: *default
@@ -22,10 +34,10 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 
-# test:
-#   <<: *default
+test:
+  <<: *default
 #   database: db/test.sqlite3
 
-# production:
-#   <<: *default
+production:
+  <<: *default
 #   database: db/production.sqlite3
